@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/main.js') }}"></script>
+    <title>Daily Routine</title>
+    <style>
+        .nav-item {
+            padding-left:20px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light"  style="color:aqua;background-color:blanchedalmond">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <span style="padding-left:5px"  style="color:aqua;background-color:blanchedalmond">Daily Routine</span>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav" style="margin:0 30px">
+                <li class="nav-item active " style="color:aqua;background-color:blanchedalmond">
+                    <a class="nav-link" href="/"  style="color:aqua;background-color:blanchedalmond">Home Page <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/lists"  style="color:aqua;background-color:blanchedalmond">My Routines</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="navbar-nav">
+            {% if current_user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <button class="btn btn-outline-success dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Me
+                </button>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/account">Change password</a>
+                  <a class="dropdown-item" href="/edit">Edit</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/logout">Log out</a>
+                </div>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/login" style="color:white;">
+                <button class="btn btn-outline-success" >
+                  Log in
+                </button>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register" style="color:white;">
+                <button class="btn btn-outline-success" >
+                  Register
+                </button>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+{% include "layout.html" %}
+
+{% block content %}
+
+{% endblock %}
+<div class="footer fg-dark" style="color:aqua;background-color:blanchedalmond">
+    <div class="footer-left" >
+        <h4>Happy coding :3</h4>
+    </div>
+    <div class="footer-right">
+        <h4>Developed by Zisan</h4>
+    </div>
+    <div>
+        <p style="text-align:center;clear:both">Copyright © 2023  </p>
+    </div>
+</div>
+<script>
+    var pathname = window.location.pathname;
+    $(".nav-link").each(function(){
+        $(this).parent().removeClass("active");
+        if(pathname == $(this).attr("href")){
+            $(this).parent().addClass("active");
+        }
+    });
+</script>
+</body>
+</html>

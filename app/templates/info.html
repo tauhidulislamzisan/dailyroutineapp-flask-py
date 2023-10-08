@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content%}
+<div class="container">
+  <div class="card text-center" style="margin-top:20px">
+    <div class="card-header" style="background-color: #28a345;">
+      <span style="color:white">My Account Details</span>
+    </div>
+    <div class="card-body">
+        <table class="table col-sm-6 offset-sm-3">
+          <tbody>
+            <tr>
+              <td style="text-align:right">Name:</td>
+              <td>{{user.username}}</td>
+            </tr>
+            <tr>
+              <td style="text-align:right">Email:</td>
+              <td>{{user.email}}</td>
+            </tr>
+          </tbody>
+        </table>
+       
+  </div>
+</div>
+</div>
+
+{% endblock %}

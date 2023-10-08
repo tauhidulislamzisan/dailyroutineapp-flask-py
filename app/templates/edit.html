@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content%}
+<script src="{{ url_for('static',filename='js/laydate/laydate.js') }}"></script>
+
+<div class="container">
+  <div class="card text-center" style="margin-top:20px">
+    <div class="card-header" style="background-color: #28a345;">
+      <span style="color:white">Change information</span>
+    </div>
+    <div class="card-body">
+        {% from "_formhelpers.html" import render_field %}
+        <form class="offset-md-4" method="post" action="{{ url_for('update') }}" autocomplete="off">
+            {{ form.csrf_token }}
+            {{ render_field(form.username,user.username) }} 
+          <div class="col-sm-6">
+            <button class="btn btn-success">Update</button>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+<script>
+laydate.render({
+  elem: '#hiredate' 
+});
+</script>
+{% endblock %}

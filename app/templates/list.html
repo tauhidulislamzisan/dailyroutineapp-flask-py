@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content%}
+<div class="container" style="min-height:500px">
+  <div class="card text-center" style="margin-top:20px">
+    <div class="card-header" style="background-color: #28a345;">
+      <span style="color:white">Routine List</span>
+    </div>
+     {% if data %}
+    <div class="card-body">
+        <table class="table col-sm-12">
+          <tbody>
+            <thead>
+              <tr>
+                <th scope="col">Created</th>
+                <th scope="col">Routine</th>
+                <th scope="col">Done?</th>
+                <th scope="col">Last Updated</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+              {% for Routine in data %}
+                <tr>
+                  <td>{{Routine.created_time}}</td>
+                  <td>{{Routine.details}}</td>
+                  {% if Routine.done %}
+                    <td>Yes</td>
+                  {% else %}
+                    <td>No</td>
+                  {% endif %}
+                  <td>{{Routine.update_time}}</td>
+                  <td>
+                    {% if Routine.done %}
+                    <a href="/update_status/{{Routine.id}}/type/incomplete">
+                      <button class="btn btn-danger">Mark as incomplete</button>
+                    </a>
+                    {% else %}
+                      <a href="/update_status/{{Routine.id}}/type/complete">
+                        <button class="btn btn-success">Mark as complete</button>
+                      </a>
+                    {% endif %}
+                    <a href="/update_status/{{Routine.id}}/type/delete">
+                        <button class="btn btn-danger">Delete</button>
+                      </a>
+                  </td>
+                </tr>
+              {% endfor %}
+            
+          </tbody>
+        </table>
+    </div>
+    {% else %}
+      No Routine added 
+     {%endif %}
+  </div>
+</div>
+{% if form%}
+<div class="container">
+    <h3>Write a routine to keep in mind</h3>
+    <form method="POST" action="{{ url_for('lists') }}">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            {{ form.details.label(class="form-label") }}
+            {{ form.details(class="form-control") }}
+            {% for error in form.details.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-success">Add Routine For Today</button>
+    </form>
+</div>
+{%endif %}
+
+{% endblock %}
